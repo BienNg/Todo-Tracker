@@ -5,19 +5,30 @@ const Schema = mongoose.Schema;
 const TaskSchema = new Schema({
   title: {
     type: String,
-    required: true,
+    required: false,
+  },
+  project: {
+    type: String,
+    required: false,
+  },
+  completed: {
+    type: Boolean,
+    default: false,
   },
   created: {
     type: Date,
     default: Date.now,
   },
-  note: String,
-  project: String,
+  note: {
+    type: String,
+    required: false,
+  },
   priority: {
     type: Number,
     min: 0,
     max: 4,
   },
+  tags: String,
 });
 
 module.exports = Task = mongoose.model("task", TaskSchema);

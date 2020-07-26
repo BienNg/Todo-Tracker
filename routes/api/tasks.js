@@ -10,7 +10,7 @@ const Task = require("../../models/Task");
 router.get("/", (req, res) => {
   Task.find()
     .sort({ date: -1 })
-    .then((items) => res.json(items));
+    .then((tasks) => res.json(tasks));
 });
 
 // @route   POST api/tasks
@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
 // @access  Public
 router.post("/", (req, res) => {
   const newTask = new Task({
-    title: req.body.title,
+    ...req.body,
   });
   newTask.save().then((task) => res.json(task));
 });
@@ -30,6 +30,21 @@ router.delete("/:id", (req, res) => {
   Task.findById(req.params.id)
     .then((item) => item.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
+});
+
+// @route   PUT api/tasks/:id
+// @desc    Update a task
+// @access  Public
+router.put("/:id", (req, res) => {
+  Task.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true },
+    (err, todo) => {
+      if (err) return res.status(500).send(err);
+      return res.send(todo);
+    }
+  );
 });
 
 module.exports = router;
