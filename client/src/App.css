@@ -473,6 +473,8 @@ hr {
 }
 
 .activities-sidebar {
+  margin-top: -20px;
+  padding-top: 20px;
   background-color: #e6e6e6;
   display: block;
   width: 250px;

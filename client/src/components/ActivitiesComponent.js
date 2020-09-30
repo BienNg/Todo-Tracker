@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import ActivitiesSidebar from "./ActivitiesSidebar";
 import TimetableData from "./TimetableData";
 import TimetableModal from "./TimetableModal";
-import { getActivities, setActiveDate } from "../actions/activityActions";
+import { setActiveDate } from "../actions/activityActions";
 import { getTracks } from "../actions/tracksActions";
 
 class ActivitiesComponent extends Component {
@@ -59,7 +59,6 @@ class ActivitiesComponent extends Component {
 
   // COMPONENT DID MOUNT
   componentDidMount() {
-    this.props.getActivities();
     this.props.getTracks();
   }
 
@@ -114,7 +113,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getActivities,
   setActiveDate,
   getTracks,
 })(ActivitiesComponent);

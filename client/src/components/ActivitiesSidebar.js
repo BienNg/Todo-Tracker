@@ -25,10 +25,6 @@ class ActivitiesSidebar extends Component {
       : "activities-sidebar activities-sidebar-small";
   };
 
-  openModal = () => {
-    this.props.setActivityModalState(true);
-  };
-
   getTimeDifference() {
     const currenteDate = new Date();
     const timeDiff = Math.abs(
@@ -92,26 +88,6 @@ class ActivitiesSidebar extends Component {
   renderSidebarActivites() {
     return (
       <ul>
-        {this.props.activity.activities.reverse().map((a) => (
-          <div className="flex-container">
-            <li key={a._id} className="flex-container-project-name">
-              <div
-                className="project-cirlce-icon"
-                style={{ backgroundColor: a.color }}
-              ></div>
-              {a.title}
-            </li>
-            <div className={this.getInnerFlexClass(a._id)}>
-              <i
-                className={this.getTimerIcon(a._id)}
-                onClick={() => this.onPlay(a._id)}
-              ></i>
-              <span className={this.getTimerTextClass(a._id)}>
-                {this.state.duration}
-              </span>
-            </div>
-          </div>
-        ))}
         {this.props.project.projects.reverse().map((p) => (
           <div className="flex-container">
             <li key={p._id} className="flex-container-project-name">
@@ -122,10 +98,6 @@ class ActivitiesSidebar extends Component {
               {p.title}
             </li>
             <div className={this.getInnerFlexClass(p._id)}>
-              <i
-                className={this.getTimerIcon(p._id)}
-                onClick={() => this.onPlay(p._id)}
-              ></i>
               <span className={this.getTimerTextClass(p._id)}>
                 {this.state.duration}
               </span>
@@ -163,11 +135,6 @@ class ActivitiesSidebar extends Component {
   render() {
     return (
       <div className={this.getSidebarClass()}>
-        <i className="fas fa-plus add-icon" onClick={this.openModal}></i>
-        <ActivitiesModal
-          className="modal"
-          show={this.props.activity.activitiesModalState}
-        />
         {this.renderSidebarActivites()}
       </div>
     );
@@ -177,7 +144,6 @@ class ActivitiesSidebar extends Component {
 // Redux States
 const mapStateToProps = (state) => ({
   sidebar: state.sidebarReducer,
-  activity: state.activityReducer,
   project: state.projectReducer,
   track: state.trackReducer,
 });
